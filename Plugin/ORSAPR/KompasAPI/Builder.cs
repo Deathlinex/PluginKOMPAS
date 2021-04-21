@@ -15,7 +15,8 @@ namespace KompasAPI
         /// </summary>
         /// <param name="kompasConnector">API Компаса</param>
         /// <param name="modelParameters">Параметры модели</param>
-        public void Build(KompasConnector kompasConnector, ModelParameters modelParameters)
+        public void Build(KompasConnector kompasConnector,
+                          ModelParameters modelParameters)
         {
             CreateCase(kompasConnector, modelParameters);
             CreateButtons(kompasConnector, modelParameters);
@@ -28,22 +29,29 @@ namespace KompasAPI
         /// </summary>
         /// <param name="kompasConnector">API Компас-3D</param>
         /// <param name="modelParameters">Параметры модели</param>
-        private void CreateCase(KompasConnector kompasConnector, ModelParameters modelParameters)
+        private void CreateCase(KompasConnector kompasConnector,
+                                ModelParameters modelParameters)
         {
-             //TODO: RSDN
             // Текущая плоскость - XOZ
-            ksEntity currentPlane = (ksEntity)kompasConnector.KsPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
+            ksEntity currentPlane =
+                (ksEntity)kompasConnector.
+                    KsPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
 
             // Эскиз
-            ksEntity frameSketch = (ksEntity)kompasConnector.KsPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksEntity frameSketch =
+                (ksEntity)kompasConnector.
+                    KsPart.NewEntity((short)Obj3dType.o3d_sketch);
             ksSketchDefinition frameSketchDef = frameSketch.GetDefinition();
             frameSketchDef.SetPlane(currentPlane);
             frameSketch.Create();
             kompasConnector.KsDocument2D = (ksDocument2D)frameSketchDef.BeginEdit();
 
-             //TODO: RSDN
             // Построение прямоугольника
-            CreateRectangle(kompasConnector, modelParameters.CaseHeight.Value, 0, -modelParameters.CaseLength.Value, 0);
+            CreateRectangle(kompasConnector,
+                modelParameters.CaseHeight.Value,
+                0,
+                -modelParameters.CaseLength.Value,
+                0);
 
             frameSketchDef.EndEdit();
 
@@ -51,9 +59,21 @@ namespace KompasAPI
             Extrusion(kompasConnector, frameSketch, modelParameters.CaseDepth.Value);
 
             // Скругление
-            Fillet(kompasConnector, ModelParameters.caseCenterX, modelParameters.CaseDepth.Value, ModelParameters.caseCoordZ, ModelParameters.caseFilletRadius);
-            Fillet(kompasConnector, -modelParameters.CaseLength.Value, modelParameters.CaseDepth.Value, ModelParameters.caseCoordZ, ModelParameters.caseFilletRadius);
-            Fillet(kompasConnector, -modelParameters.CaseLength.Value / 2, modelParameters.CaseDepth.Value, ModelParameters.caseCenterZ, ModelParameters.caseFilletRadius);
+            Fillet(kompasConnector,
+                ModelParameters.CaseCenterX,
+                modelParameters.CaseDepth.Value,
+                ModelParameters.CaseCoordZ,
+                ModelParameters.CaseFilletRadius);
+            Fillet(kompasConnector,
+                -modelParameters.CaseLength.Value,
+                modelParameters.CaseDepth.Value,
+                ModelParameters.CaseCoordZ,
+                ModelParameters.CaseFilletRadius);
+            Fillet(kompasConnector,
+                -modelParameters.CaseLength.Value / 2,
+                modelParameters.CaseDepth.Value,
+                ModelParameters.CaseCenterZ,
+                ModelParameters.CaseFilletRadius);
         }
 
         /// <summary>
@@ -61,14 +81,21 @@ namespace KompasAPI
         /// </summary>
         /// <param name="kompasConnector">API Компас-3D</param>
         /// <param name="modelParameters">Параметры модели</param>
-        private void CreateButtons(KompasConnector kompasConnector, ModelParameters modelParameters)
+        private void CreateButtons(KompasConnector kompasConnector,
+                                   ModelParameters modelParameters)
         {
             // Текущая плоскость - XOZ
-            ksEntity currentPlane = (ksEntity)kompasConnector.KsPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
-            currentPlane = OffsetPlane(kompasConnector, currentPlane, true, modelParameters.CaseDepth.Value);
+            ksEntity currentPlane =
+                (ksEntity)kompasConnector.
+                    KsPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
+            currentPlane =
+                OffsetPlane(kompasConnector, currentPlane, true,
+                    modelParameters.CaseDepth.Value);
 
             // Эскиз
-            ksEntity frameSketch = (ksEntity)kompasConnector.KsPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksEntity frameSketch =
+                (ksEntity)kompasConnector.
+                    KsPart.NewEntity((short)Obj3dType.o3d_sketch);
             ksSketchDefinition frameSketchDef = frameSketch.GetDefinition();
             frameSketchDef.SetPlane(currentPlane);
             frameSketch.Create();
@@ -79,25 +106,34 @@ namespace KompasAPI
             var partHeight = modelParameters.CaseHeight.Value / 10;
 
             //Построение кругов
-            kompasConnector.KsDocument2D.ksCircle(-partLength * 9, partHeight * 1.5, ModelParameters.defaultButtonRadius, 1);
-            kompasConnector.KsDocument2D.ksCircle(-partLength * 8, partHeight * 1.5, radius, 1);
-            kompasConnector.KsDocument2D.ksCircle(-partLength * 9, partHeight * 3, radius, 1);
+            kompasConnector.KsDocument2D.ksCircle(-partLength * 9,
+                partHeight * 1.5,
+                ModelParameters.DefaultButtonRadius, 1);
+            kompasConnector.KsDocument2D.ksCircle(-partLength * 8,
+                partHeight * 1.5,
+                radius, 1);
+            kompasConnector.KsDocument2D.ksCircle(-partLength * 9,
+                partHeight * 3,
+                radius, 1);
+
             frameSketchDef.EndEdit();
 
             // Выдавливание
-            Extrusion(kompasConnector, frameSketch, ModelParameters.circleButtonExtrusionDepth);
+            Extrusion(kompasConnector, frameSketch, ModelParameters.CircleButtonExtrusionDepth);
 
             // Скругление
             Fillet(kompasConnector,
-                ModelParameters.cirleFirstButtonFilletX * modelParameters.CaseLength.Value,
-                modelParameters.CaseDepth.Value + ModelParameters.circleButtonFilletY,
-                -(ModelParameters.circleFirstButtonFilletZ * modelParameters.CaseHeight.Value + radius),
-                ModelParameters.circleButtonRadius);
+                ModelParameters.CirleFirstButtonFilletX * modelParameters.CaseLength.Value,
+                modelParameters.CaseDepth.Value + ModelParameters.CircleButtonFilletY,
+                -(ModelParameters.CircleFirstButtonFilletZ * modelParameters.CaseHeight.Value
+                + radius),
+                ModelParameters.CircleButtonRadius);
             Fillet(kompasConnector,
-                ModelParameters.circleSecondButtonFilletX * modelParameters.CaseLength.Value,
-                modelParameters.CaseDepth.Value + ModelParameters.circleButtonFilletY,
-                -(ModelParameters.circleSecondButtonFilletZ * modelParameters.CaseHeight.Value + radius),
-                ModelParameters.circleButtonRadius);
+                ModelParameters.CircleSecondButtonFilletX * modelParameters.CaseLength.Value,
+                modelParameters.CaseDepth.Value + ModelParameters.CircleButtonFilletY,
+                -(ModelParameters.CircleSecondButtonFilletZ * modelParameters.CaseHeight.Value
+                  + radius),
+                ModelParameters.CircleButtonRadius);
         }
 
         /// <summary>
@@ -105,14 +141,21 @@ namespace KompasAPI
         /// </summary>
         /// <param name="kompasConnector">API Компас-3D</param>
         /// <param name="modelParameters">Параметры модели</param>
-        private void CreateRectangleButton(KompasConnector kompasConnector, ModelParameters modelParameters)
+        private void CreateRectangleButton(KompasConnector kompasConnector,
+                                           ModelParameters modelParameters)
         {
             // Текущая плоскость - XOZ
-            ksEntity currentPlane = (ksEntity)kompasConnector.KsPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
-            currentPlane = OffsetPlane(kompasConnector, currentPlane, true, modelParameters.CaseDepth.Value);
+            ksEntity currentPlane =
+                (ksEntity)kompasConnector.
+                    KsPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
+            currentPlane =
+                OffsetPlane(kompasConnector, currentPlane, true,
+                    modelParameters.CaseDepth.Value);
 
             // Эскиз 
-            ksEntity frameSketch = (ksEntity)kompasConnector.KsPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksEntity frameSketch =
+                (ksEntity)kompasConnector.
+                    KsPart.NewEntity((short)Obj3dType.o3d_sketch);
             ksSketchDefinition frameSketchDef = frameSketch.GetDefinition();
             frameSketchDef.SetPlane(currentPlane);
             frameSketch.Create();
@@ -120,15 +163,17 @@ namespace KompasAPI
 
             //Построение прямоугольника
             CreateRectangle(kompasConnector,
-                modelParameters.CaseHeight.Value - ModelParameters.rectangleButtonIndentY,
-                modelParameters.CaseHeight.Value - ModelParameters.rectangleButtonIndentY - modelParameters.ButtonHeight.Value,
-                -(modelParameters.CaseLength.Value - ModelParameters.rectangleButtonIndentX),
-                -(modelParameters.CaseLength.Value - ModelParameters.rectangleButtonIndentX) + modelParameters.ButtonLength.Value);
+            modelParameters.CaseHeight.Value - ModelParameters.RectangleButtonIndentY,
+            modelParameters.CaseHeight.Value - ModelParameters.RectangleButtonIndentY
+            - modelParameters.ButtonHeight.Value,
+            -(modelParameters.CaseLength.Value - ModelParameters.RectangleButtonIndentX),
+            -(modelParameters.CaseLength.Value - ModelParameters.RectangleButtonIndentX)
+            + modelParameters.ButtonLength.Value);
 
             frameSketchDef.EndEdit();
 
             // Выдавливание
-            Extrusion(kompasConnector, frameSketch, ModelParameters.rectangleButtonExtrusionDepth);
+            Extrusion(kompasConnector, frameSketch, ModelParameters.RectangleButtonExtrusionDepth);
         }
 
         /// <summary>
@@ -136,31 +181,67 @@ namespace KompasAPI
         /// </summary>
         /// <param name="kompasConnector">API Компас-3D</param>
         /// <param name="modelParameters">Параметры модели</param>
-        private void CreateRectangleDoor(KompasConnector kompasConnector, ModelParameters modelParameters)
+        private void CreateRectangleDoor(KompasConnector kompasConnector,
+                                         ModelParameters modelParameters)
         {
             // Текущая плоскость - XOZ
-            ksEntity currentPlane = (ksEntity)kompasConnector.KsPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
-            currentPlane = OffsetPlane(kompasConnector, currentPlane, true, modelParameters.CaseDepth.Value);
+            ksEntity currentPlane =
+                (ksEntity)kompasConnector.KsPart.
+                    GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
+            currentPlane =
+                OffsetPlane(kompasConnector, currentPlane, true,
+                    modelParameters.CaseDepth.Value);
 
             // Эскиз
-            ksEntity frameSketch = (ksEntity)kompasConnector.KsPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksEntity frameSketch =
+                (ksEntity)kompasConnector.KsPart.
+                    NewEntity((short)Obj3dType.o3d_sketch);
             ksSketchDefinition frameSketchDef = frameSketch.GetDefinition();
             frameSketchDef.SetPlane(currentPlane);
             frameSketch.Create();
             kompasConnector.KsDocument2D = (ksDocument2D)frameSketchDef.BeginEdit();
 
-            var y_min = ((modelParameters.CaseHeight.Value / 2) - (modelParameters.DoorHeight.Value / 2)) + ModelParameters.rectangleDoorY;
-            var y_max = (modelParameters.CaseHeight.Value / 2) + (modelParameters.DoorHeight.Value / 2);
-            var x_min = ModelParameters.rectangleDoorCenterX + ModelParameters.rectangleDoorX;
+            var y_min = ((modelParameters.CaseHeight.Value / 2)
+                         - (modelParameters.DoorHeight.Value / 2))
+                        + ModelParameters.RectangleDoorY;
+            var y_max = (modelParameters.CaseHeight.Value / 2)
+                        + (modelParameters.DoorHeight.Value / 2);
+            var x_min = ModelParameters.RectangleDoorCenterX
+                        + ModelParameters.RectangleDoorX;
             var x_max = x_min + modelParameters.DoorLength.Value;
 
             // Построение прямоугольника
-            CreateRectangle(kompasConnector, y_min, y_max, -x_min, -x_max);
+            CreateRectangle(kompasConnector,
+                y_min,
+                y_max,
+                -x_min,
+                -x_max);
 
             frameSketchDef.EndEdit();
 
             // Выдавливание
-            Extrusion(kompasConnector, frameSketch, ModelParameters.rectangleDoorExtrusionDepth);
+            Extrusion(kompasConnector, frameSketch, ModelParameters.RectangleDoorExtrusionDepth);
+
+            // Скругление
+            Fillet(kompasConnector,
+                ModelParameters.RectangleDoorFilletX,
+                modelParameters.CaseDepth.Value + ModelParameters.RectangleDoorFilletY,
+                ModelParameters.RectangleDoorFilletZ,
+                ModelParameters.RectangleDoorFilletRadius);
+            Fillet(kompasConnector,
+                -modelParameters.CaseLength.Value / 3,
+                modelParameters.CaseDepth.Value + ModelParameters.RectangleDoorFilletY,
+                -((modelParameters.CaseHeight.Value / 2)
+                  + (modelParameters.DoorHeight.Value / 2)),
+                ModelParameters.RectangleDoorFilletRadius);
+            Fillet(kompasConnector,
+                -modelParameters.CaseLength.Value / 3,
+                modelParameters.CaseDepth.Value + ModelParameters.RectangleDoorFilletY,
+                -((modelParameters.CaseHeight.Value / 2)
+                  - (modelParameters.DoorHeight.Value / 2))
+                - ModelParameters.RectangleDoorFilletCoordZ,
+                ModelParameters.RectangleDoorFilletRadius);
+
         }
 
         /// <summary>
@@ -170,10 +251,14 @@ namespace KompasAPI
         /// <param name="plane">Плоскость</param>
         /// <param name="direction">Направление</param>
         /// <param name="offset">Расстояние</param>
-        private ksEntity OffsetPlane(KompasConnector kompasConnector, ksEntity plane, bool direction, double offset)
+        private ksEntity OffsetPlane(KompasConnector kompasConnector, ksEntity plane,
+                                     bool direction, double offset)
         {
-            ksEntity newPlane = (ksEntity)kompasConnector.KsPart.NewEntity((short)Obj3dType.o3d_planeOffset);
-            ksPlaneOffsetDefinition newPlaneDef = (ksPlaneOffsetDefinition)newPlane.GetDefinition();
+            ksEntity newPlane =
+                (ksEntity)kompasConnector.KsPart.
+                    NewEntity((short)Obj3dType.o3d_planeOffset);
+            ksPlaneOffsetDefinition newPlaneDef =
+                (ksPlaneOffsetDefinition)newPlane.GetDefinition();
             newPlaneDef.SetPlane(plane);
             newPlaneDef.direction = direction;
             newPlaneDef.offset = offset;
@@ -189,14 +274,20 @@ namespace KompasAPI
         /// <param name="y">Координата Y </param>
         /// <param name="z">Координата Z </param>
         /// <param name="radius">Радиус </param>
-        private void Fillet(KompasConnector kompasConnector, double x, double y, double z, double radius)
+        private void Fillet(KompasConnector kompasConnector,
+                            double x, double y, double z, double radius)
         {
-            ksEntity fillet = (ksEntity)kompasConnector.KsPart.NewEntity((short)Obj3dType.o3d_fillet);
+            ksEntity fillet = 
+                (ksEntity)kompasConnector.KsPart.
+                    NewEntity((short)Obj3dType.o3d_fillet);
             ksFilletDefinition filletDef = (ksFilletDefinition)fillet.GetDefinition();
             filletDef.radius = radius;
             filletDef.tangent = false;
-            ksEntityCollection entityCollectionPart = (ksEntityCollection)kompasConnector.KsPart.EntityCollection((short)Obj3dType.o3d_edge);
-            ksEntityCollection entityCollectionFillet = (ksEntityCollection)filletDef.array();
+            ksEntityCollection entityCollectionPart =
+                (ksEntityCollection)kompasConnector.KsPart.
+                    EntityCollection((short)Obj3dType.o3d_edge);
+            ksEntityCollection entityCollectionFillet =
+                (ksEntityCollection)filletDef.array();
             entityCollectionFillet.Clear();
             entityCollectionPart.SelectByPoint(x, y, z);
             entityCollectionFillet.Add(entityCollectionPart.First());
@@ -209,11 +300,16 @@ namespace KompasAPI
         /// <param name="kompasConnector">API Компаса</param>
         /// <param name="sketch">Эскиз</param>
         /// <param name="depth">Глубина</param>
-        private void Extrusion(KompasConnector kompasConnector, ksEntity sketch, double depth)
+        private void Extrusion(KompasConnector kompasConnector,
+                               ksEntity sketch, double depth)
         {
-            ksEntity extrusion = (ksEntity)kompasConnector.KsPart.NewEntity((short)Obj3dType.o3d_bossExtrusion);
-            ksBossExtrusionDefinition extrusionDef = (ksBossExtrusionDefinition)extrusion.GetDefinition();
-            ksExtrusionParam extrusionParam = (ksExtrusionParam)extrusionDef.ExtrusionParam();
+            ksEntity extrusion =
+                (ksEntity)kompasConnector.KsPart.
+                    NewEntity((short)Obj3dType.o3d_bossExtrusion);
+            ksBossExtrusionDefinition extrusionDef =
+                (ksBossExtrusionDefinition)extrusion.GetDefinition();
+            ksExtrusionParam extrusionParam =
+                (ksExtrusionParam)extrusionDef.ExtrusionParam();
             extrusionParam.typeNormal = (short)End_Type.etBlind;
             extrusionDef.SetSketch(sketch);
             extrusionParam.direction = (short)Direction_Type.dtNormal;
@@ -229,12 +325,26 @@ namespace KompasAPI
         /// <param name="minHeight">Минимальная высота</param>
         /// <param name="maxWidth">Максимальная ширина</param>
         /// <param name="minWidth">Минимальная ширина</param>
-        private void CreateRectangle(KompasConnector kompasConnector, double maxHeight, double minHeight, double maxWidth, double minWidth)
+        private void CreateRectangle(KompasConnector kompasConnector,
+                                     double maxHeight, double minHeight,
+                                     double maxWidth, double minWidth)
         {
-            kompasConnector.KsDocument2D.ksLineSeg(minWidth, minHeight, minWidth, maxHeight, 1);
-            kompasConnector.KsDocument2D.ksLineSeg(minWidth, maxHeight, maxWidth, maxHeight, 1);
-            kompasConnector.KsDocument2D.ksLineSeg(maxWidth, maxHeight, maxWidth, minHeight, 1);
-            kompasConnector.KsDocument2D.ksLineSeg(maxWidth, minHeight, minWidth, minHeight, 1);
+            kompasConnector.KsDocument2D.ksLineSeg(minWidth,
+                minHeight,
+                minWidth,
+                maxHeight, 1);
+            kompasConnector.KsDocument2D.ksLineSeg(minWidth,
+                maxHeight,
+                maxWidth,
+                maxHeight, 1);
+            kompasConnector.KsDocument2D.ksLineSeg(maxWidth,
+                maxHeight,
+                maxWidth,
+                minHeight, 1);
+            kompasConnector.KsDocument2D.ksLineSeg(maxWidth,
+                minHeight,
+                minWidth,
+                minHeight, 1);
         }
     }
 }

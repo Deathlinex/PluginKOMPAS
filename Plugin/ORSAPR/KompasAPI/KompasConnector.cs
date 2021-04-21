@@ -58,7 +58,8 @@ namespace KompasAPI
             {
                 try
                 {
-                    _kompasObject = (KompasObject)Marshal.GetActiveObject("KOMPAS.Application.5");
+                    _kompasObject = 
+                        (KompasObject)Marshal.GetActiveObject("KOMPAS.Application.5");
                     _kompasObject.Visible = true;
                 }
                 catch

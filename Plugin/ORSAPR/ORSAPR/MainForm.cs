@@ -73,7 +73,11 @@ namespace ORSAPR
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    ex.Message,
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -96,7 +100,8 @@ namespace ORSAPR
         {
             try
             {
-                _modelParameters = new ModelParameters(Int32.Parse(CaseDepthTextBox.Text),
+                _modelParameters = new ModelParameters(
+                    Int32.Parse(CaseDepthTextBox.Text),
                     Int32.Parse(DiameterOfButtonsTextBox.Text),
                     Int32.Parse(CaseLengthTextBox.Text),
                     Int32.Parse(CaseHeightTextBox.Text),
@@ -129,7 +134,8 @@ namespace ORSAPR
         {
             try
             {
-                _modelParameters = new ModelParameters(Int32.Parse(CaseDepthTextBox.Text),
+                _modelParameters = new ModelParameters(
+                    Int32.Parse(CaseDepthTextBox.Text),
                     Int32.Parse(DiameterOfButtonsTextBox.Text),
                     Int32.Parse(CaseLengthTextBox.Text),
                     Int32.Parse(CaseHeightTextBox.Text),
@@ -161,7 +167,8 @@ namespace ORSAPR
         private void DiameterOfButtonsTextBox_TextChanged(object sender, EventArgs e)
         {
             //TODO: Duplication
-            TextBoxValueCheck(DiameterOfButtonsTextBox, _modelParameters.DiameterOfButtons);
+            TextBoxValueCheck(DiameterOfButtonsTextBox,
+                              _modelParameters.DiameterOfButtons);
         }
         
         /// <summary>
