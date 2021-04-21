@@ -30,6 +30,7 @@ namespace KompasAPI
         /// <param name="modelParameters">Параметры модели</param>
         private void CreateCase(KompasConnector kompasConnector, ModelParameters modelParameters)
         {
+             //TODO: RSDN
             // Текущая плоскость - XOZ
             ksEntity currentPlane = (ksEntity)kompasConnector.KsPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
 
@@ -40,6 +41,7 @@ namespace KompasAPI
             frameSketch.Create();
             kompasConnector.KsDocument2D = (ksDocument2D)frameSketchDef.BeginEdit();
 
+             //TODO: RSDN
             // Построение прямоугольника
             CreateRectangle(kompasConnector, modelParameters.CaseHeight.Value, 0, -modelParameters.CaseLength.Value, 0);
 

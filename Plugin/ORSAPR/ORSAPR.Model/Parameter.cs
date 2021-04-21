@@ -12,11 +12,13 @@ namespace KompasAPI.Model
         /// </summary>
         public string Name { get; set; }
 
+        //TODO:
         /// <summary>
         /// Минимальное значение параметра
         /// </summary>
         public double Min { get; set; }
 
+        //TODO:
         /// <summary>
         /// Максимальное значение параметра
         /// </summary>

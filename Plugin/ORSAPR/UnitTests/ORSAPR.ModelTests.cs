@@ -4,6 +4,7 @@ using KompasAPI.Model;
 
 namespace UnitTests
 {
+     //TODO: RSDN
     [TestFixture]
     class ORSAPRModelTests
     {
@@ -22,7 +23,7 @@ namespace UnitTests
             var sourceParameters = CreateTestParameters();
             var expectedParameters = new ModelParameters();
             var actualParameters = sourceParameters;
-
+             //TODO: RSDN
             Assert.AreEqual(expectedParameters.DoorHeight.Value, actualParameters.DoorHeight.Value, "Значения DoorHeight не совпадают");
             Assert.AreEqual(expectedParameters.CaseDepth.Value, actualParameters.CaseDepth.Value, "Значения CaseDepth не совпадают");
             Assert.AreEqual(expectedParameters.DiameterOfButtons.Value, actualParameters.DiameterOfButtons.Value, "Значения DiameterOfButtons не совпадают");

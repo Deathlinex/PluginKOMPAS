@@ -9,7 +9,7 @@ namespace KompasAPI.Model
     public class ModelParameters
     {
         #region Constants
-
+         //TODO: RSDN
         /// <summary>
         /// Координата X корпуса
         /// </summary>
@@ -158,6 +158,8 @@ namespace KompasAPI.Model
             }
             set
             {
+                //TODO: Duplication
+                //TODO:const
                 _caseLength = value;
                 DoorLength.Max = value.Value - 165;
                 DoorLength.Value = value.Value - 165;
@@ -175,6 +177,8 @@ namespace KompasAPI.Model
             }
             set
             {
+                //TODO: Duplication
+                //TODO:const
                 _caseHeight = value;
                 DoorHeight.Max = value.Value - 25;
                 DoorHeight.Value = value.Value - 25;
@@ -196,12 +200,14 @@ namespace KompasAPI.Model
             ButtonHeight = new Parameter("Высота кнопки", 50, 30, 50);
         }
 
+         //TODO: RSDN
         /// <summary>
         /// Контруктор класса параметров
         /// </summary>
         public ModelParameters(int caseDepth, int diameterOfButtons, int caseLength, int caseHeight, int buttonLength, int buttonHeight)
 
         {
+            //TODO: Duplication
             DoorHeight = new Parameter("Высота дверцы", caseHeight - 25, 200, caseHeight - 25);
             CaseDepth = new Parameter("Глубина корпуса", caseDepth, 300, 450);
             DiameterOfButtons = new Parameter("Диаметр кнопок", diameterOfButtons, 20, 40);

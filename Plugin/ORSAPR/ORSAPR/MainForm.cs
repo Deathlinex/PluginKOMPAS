@@ -104,6 +104,7 @@ namespace ORSAPR
                     Int32.Parse(ButtonHeightTextBox.Text));
                 FillTextBoxes();
             }
+            //TODO:
             catch (Exception)
             {}
             TextBoxValueCheck(CaseLengthTextBox, _modelParameters.CaseLength);
@@ -136,6 +137,7 @@ namespace ORSAPR
                     Int32.Parse(ButtonHeightTextBox.Text));
                 FillTextBoxes();
             }
+            //TODO:
             catch (Exception)
             {}
             TextBoxValueCheck(CaseHeightTextBox, _modelParameters.CaseHeight);
@@ -158,6 +160,7 @@ namespace ORSAPR
         /// <param name="e"></param>
         private void DiameterOfButtonsTextBox_TextChanged(object sender, EventArgs e)
         {
+            //TODO: Duplication
             TextBoxValueCheck(DiameterOfButtonsTextBox, _modelParameters.DiameterOfButtons);
         }
         
@@ -168,6 +171,7 @@ namespace ORSAPR
         /// <param name="e"></param>
         private void ButtonLengthTextBox_TextChanged(object sender, EventArgs e)
         {
+            //TODO: Duplication
             TextBoxValueCheck(ButtonLengthTextBox, _modelParameters.ButtonLength);
         }
 
@@ -178,6 +182,7 @@ namespace ORSAPR
         /// <param name="e"></param>
         private void ButtonHeightTextBox_TextChanged(object sender, EventArgs e)
         {
+            //TODO: Duplication
             TextBoxValueCheck(ButtonHeightTextBox, _modelParameters.ButtonHeight);
         }
         
