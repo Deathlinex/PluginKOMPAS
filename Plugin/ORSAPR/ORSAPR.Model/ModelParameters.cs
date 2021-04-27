@@ -139,6 +139,46 @@ namespace KompasAPI.Model
         /// </summary>
         public const double DoorHeightDependentValue = 25;
 
+        /// <summary>
+        /// Отступ первого элемента ручки от дверцы по Y
+        /// </summary>
+        public const double DoorHandleIndentY = 20;
+
+        /// <summary>
+        /// Отступ второго элемента ручки от дверцы по Y
+        /// </summary>
+        public const double DoorHandleIndentY2 = 30;
+
+        /// <summary>
+        /// Значение выдавливания первого элемента ручки от дверцы
+        /// </summary>
+        public const double DoorHandleExtrusionDepth = 17;
+
+        /// <summary>
+        /// Значение выдавливания второго элемента ручки от дверцы
+        /// </summary>
+        public const double DoorHandleExtrusionDepth2 = 7;
+
+        /// <summary>
+        /// Радиус скругления первого элемента ручки от дверцы
+        /// </summary>
+        public const double DoorHandleFilletRadius = 3;
+
+        /// <summary>
+        /// Радиус скругления второго элемента ручки от дверцы
+        /// </summary>
+        public const double DoorHandleFilletRadius2 = 7;
+
+        /// <summary>
+        /// Радиус скругления первого элемента ручки по Y
+        /// </summary>
+        public const double DoorHandleFilletY = 32;
+
+        /// <summary>
+        /// Радиус скругления второго элемента ручки по Y
+        /// </summary>
+        public const double DoorHandleFilletY2 = 25;
+
         #endregion
 
         /// <summary>
@@ -224,7 +264,7 @@ namespace KompasAPI.Model
                 "Высота дверцы",
                 200,
                 200,
-                220);
+                225);
             CaseDepth = new Parameter(
                 "Глубина корпуса",
                 300,

@@ -22,6 +22,7 @@ namespace KompasAPI
             CreateButtons(kompasConnector, modelParameters);
             CreateRectangleButton(kompasConnector, modelParameters);
             CreateRectangleDoor(kompasConnector, modelParameters);
+            CreateDoorHandle(kompasConnector, modelParameters);
         }
 
         /// <summary>
@@ -242,6 +243,94 @@ namespace KompasAPI
                 - ModelParameters.RectangleDoorFilletCoordZ,
                 ModelParameters.RectangleDoorFilletRadius);
 
+        }
+
+        /// <summary>
+        /// Построение ручки от дверцы
+        /// </summary>
+        /// <param name="kompasConnector">API Компас-3D</param>
+        /// <param name="modelParameters">Параметры модели</param>
+        private void CreateDoorHandle(KompasConnector kompasConnector,
+            ModelParameters modelParameters)
+        {
+            // Текущая плоскость - XOZ для первого элемента
+            ksEntity currentPlane =
+                (ksEntity)kompasConnector.
+                    KsPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
+            currentPlane =
+                OffsetPlane(kompasConnector, currentPlane, true,
+                    modelParameters.CaseDepth.Value + 15);
+
+            // Текущая плоскость - XOZ для второго элемента
+            ksEntity currentPlane2 =
+                (ksEntity)kompasConnector.
+                    KsPart.GetDefaultEntity((short)Obj3dType.o3d_planeXOZ);
+            currentPlane2 =
+                OffsetPlane(kompasConnector, currentPlane2, true,
+                    modelParameters.CaseDepth.Value + 25);
+
+            // Эскиз первого элемента
+            ksEntity frameSketch =
+                (ksEntity)kompasConnector.
+                    KsPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksSketchDefinition frameSketchDef = frameSketch.GetDefinition();
+            frameSketchDef.SetPlane(currentPlane);
+            frameSketch.Create();
+            kompasConnector.KsDocument2D = (ksDocument2D)frameSketchDef.BeginEdit();
+
+            //Построение прямоугольника
+            CreateRectangle(kompasConnector,
+                (modelParameters.CaseHeight.Value / 2)
+                + (modelParameters.CaseHeight.Value / 5),
+                (modelParameters.CaseHeight.Value / 2)
+                - (modelParameters.CaseHeight.Value / 5),
+                -(modelParameters.DoorLength.Value)
+                - ModelParameters.DoorHandleIndentY,
+                -(modelParameters.DoorLength.Value));
+
+            frameSketchDef.EndEdit();
+
+            // Эскиз второго элемента
+            ksEntity frameSketch2 =
+                (ksEntity)kompasConnector.
+                    KsPart.NewEntity((short)Obj3dType.o3d_sketch);
+            ksSketchDefinition frameSketchDef2 = frameSketch2.GetDefinition();
+            frameSketchDef2.SetPlane(currentPlane2);
+            frameSketch2.Create();
+            kompasConnector.KsDocument2D = (ksDocument2D)frameSketchDef2.BeginEdit();
+
+            //Построение прямоугольника
+            CreateRectangle(kompasConnector,
+                (modelParameters.CaseHeight.Value / 2)
+                + (modelParameters.CaseHeight.Value / 5),
+                (modelParameters.CaseHeight.Value / 2)
+                - (modelParameters.CaseHeight.Value / 5),
+                -(modelParameters.DoorLength.Value)
+                + ModelParameters.DoorHandleIndentY2,
+                -(modelParameters.DoorLength.Value));
+
+            frameSketchDef2.EndEdit();
+            
+            // Выдавливание
+            Extrusion(kompasConnector, frameSketch, ModelParameters.DoorHandleExtrusionDepth);
+            Extrusion(kompasConnector, frameSketch2, ModelParameters.DoorHandleExtrusionDepth2);
+
+            //Скругление
+            Fillet(kompasConnector,
+                -(modelParameters.DoorLength.Value) + ModelParameters.DoorHandleIndentY2,
+                modelParameters.CaseDepth.Value + ModelParameters.DoorHandleFilletY,
+                -modelParameters.CaseHeight.Value / 2,
+                ModelParameters.DoorHandleFilletRadius);
+            Fillet(kompasConnector,
+                -(modelParameters.DoorLength.Value) + ModelParameters.DoorHandleIndentY2,
+                modelParameters.CaseDepth.Value + ModelParameters.DoorHandleFilletY2,
+                -modelParameters.CaseHeight.Value / 2,
+                ModelParameters.DoorHandleFilletRadius);
+            Fillet(kompasConnector,
+                -(modelParameters.DoorLength.Value) - ModelParameters.DoorHandleIndentY,
+                modelParameters.CaseDepth.Value + ModelParameters.DoorHandleFilletY,
+                -modelParameters.CaseHeight.Value / 2,
+                ModelParameters.DoorHandleFilletRadius2);
         }
 
         /// <summary>

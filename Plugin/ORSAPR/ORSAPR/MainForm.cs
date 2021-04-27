@@ -100,13 +100,7 @@ namespace ORSAPR
         {
             try
             {
-                _modelParameters = new ModelParameters(
-                    Int32.Parse(CaseDepthTextBox.Text),
-                    Int32.Parse(DiameterOfButtonsTextBox.Text),
-                    Int32.Parse(CaseLengthTextBox.Text),
-                    Int32.Parse(CaseHeightTextBox.Text),
-                    Int32.Parse(ButtonLengthTextBox.Text),
-                    Int32.Parse(ButtonHeightTextBox.Text));
+                GetNewModelParameters();
                 FillTextBoxes();
             }
             //TODO:
@@ -134,13 +128,7 @@ namespace ORSAPR
         {
             try
             {
-                _modelParameters = new ModelParameters(
-                    Int32.Parse(CaseDepthTextBox.Text),
-                    Int32.Parse(DiameterOfButtonsTextBox.Text),
-                    Int32.Parse(CaseLengthTextBox.Text),
-                    Int32.Parse(CaseHeightTextBox.Text),
-                    Int32.Parse(ButtonLengthTextBox.Text),
-                    Int32.Parse(ButtonHeightTextBox.Text));
+                GetNewModelParameters();
                 FillTextBoxes();
             }
             //TODO:
@@ -166,7 +154,7 @@ namespace ORSAPR
         /// <param name="e"></param>
         private void DiameterOfButtonsTextBox_TextChanged(object sender, EventArgs e)
         {
-            //TODO: Duplication
+            
             TextBoxValueCheck(DiameterOfButtonsTextBox,
                               _modelParameters.DiameterOfButtons);
         }
@@ -178,7 +166,6 @@ namespace ORSAPR
         /// <param name="e"></param>
         private void ButtonLengthTextBox_TextChanged(object sender, EventArgs e)
         {
-            //TODO: Duplication
             TextBoxValueCheck(ButtonLengthTextBox, _modelParameters.ButtonLength);
         }
 
@@ -189,7 +176,6 @@ namespace ORSAPR
         /// <param name="e"></param>
         private void ButtonHeightTextBox_TextChanged(object sender, EventArgs e)
         {
-            //TODO: Duplication
             TextBoxValueCheck(ButtonHeightTextBox, _modelParameters.ButtonHeight);
         }
         
@@ -206,6 +192,20 @@ namespace ORSAPR
             ButtonLengthTextBox.Text = _modelParameters.ButtonLength.Value.ToString();
             ButtonHeightTextBox.Text = _modelParameters.ButtonHeight.Value.ToString();
             DoorHeightTextBox.Text = _modelParameters.DoorHeight.Value.ToString();
+        }
+
+        /// <summary>
+        /// Получение новой модели параметров
+        /// </summary>
+        private void GetNewModelParameters()
+        {
+            _modelParameters = new ModelParameters(
+                Int32.Parse(CaseDepthTextBox.Text),
+                Int32.Parse(DiameterOfButtonsTextBox.Text),
+                Int32.Parse(CaseLengthTextBox.Text),
+                Int32.Parse(CaseHeightTextBox.Text),
+                Int32.Parse(ButtonLengthTextBox.Text),
+                Int32.Parse(ButtonHeightTextBox.Text));
         }
 
         /// <summary>

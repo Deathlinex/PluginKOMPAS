@@ -12,17 +12,34 @@ namespace KompasAPI.Model
         /// </summary>
         public string Name { get; set; }
 
-        //TODO:
         /// <summary>
         /// Минимальное значение параметра
         /// </summary>
         public double Min { get; set; }
 
-        //TODO:
         /// <summary>
         /// Максимальное значение параметра
         /// </summary>
-        public double Max { get; set; }
+        private double _max;
+
+        /// <summary>
+        /// Максимальное значение параметра
+        /// </summary>
+        public double Max
+        {
+            get
+            {
+                return _max;
+            }
+            set
+            {
+                if (Max < Min)
+                {
+                    throw new ArgumentException( $" Максимум {Max} меньше чем {Min}");
+                }
+                _max = value;
+            }
+        }
 
         /// <summary>
         /// Значение параметра
@@ -44,10 +61,7 @@ namespace KompasAPI.Model
                 {
                     throw new ArgumentException($"{Name}" + $" не входит в диапазон {Min} - {Max} мм.");
                 }
-                else
-                {
-                    _value = value;
-                }
+                _value = value;
             }
         }
 
@@ -62,8 +76,8 @@ namespace KompasAPI.Model
             double value, double min, double max)
         {
             Name = name;
-            Min = min;
             Max = max;
+            Min = min;
             Value = value;
         }
     }
