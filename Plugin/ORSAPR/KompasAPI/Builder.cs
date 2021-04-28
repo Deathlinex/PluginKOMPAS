@@ -1,7 +1,7 @@
 ﻿using System;
 using Kompas6API5;
 using Kompas6Constants3D;
-using KompasAPI.Model;
+using ORSAPR.Model;
 
 namespace KompasAPI
 {

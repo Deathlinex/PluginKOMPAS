@@ -206,9 +206,9 @@
             this.DoorHeightLabel1.AutoSize = true;
             this.DoorHeightLabel1.Location = new System.Drawing.Point(15, 198);
             this.DoorHeightLabel1.Name = "DoorHeightLabel1";
-            this.DoorHeightLabel1.Size = new System.Drawing.Size(104, 13);
+            this.DoorHeightLabel1.Size = new System.Drawing.Size(106, 13);
             this.DoorHeightLabel1.TabIndex = 30;
-            this.DoorHeightLabel1.Text = "Высота дверцы (L):";
+            this.DoorHeightLabel1.Text = "Высота дверцы (H):";
             // 
             // DoorHeightLabel
             // 

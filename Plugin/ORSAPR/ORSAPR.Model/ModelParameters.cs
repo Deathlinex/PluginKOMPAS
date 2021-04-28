@@ -1,7 +1,4 @@
-﻿using System;
-using System.Security.Principal;
-
-namespace KompasAPI.Model
+﻿namespace ORSAPR.Model
 {
     /// <summary>
     /// Класс параметров модели

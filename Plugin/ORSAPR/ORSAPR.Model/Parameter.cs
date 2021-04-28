@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KompasAPI.Model
+namespace ORSAPR.Model
 {
     /// <summary>
     /// Класс параметра
@@ -20,27 +20,8 @@ namespace KompasAPI.Model
         /// <summary>
         /// Максимальное значение параметра
         /// </summary>
-        private double _max;
-
-        /// <summary>
-        /// Максимальное значение параметра
-        /// </summary>
-        public double Max
-        {
-            get
-            {
-                return _max;
-            }
-            set
-            {
-                if (Max < Min)
-                {
-                    throw new ArgumentException( $" Максимум {Max} меньше чем {Min}");
-                }
-                _max = value;
-            }
-        }
-
+        public double Max { get; set; }
+        
         /// <summary>
         /// Значение параметра
         /// </summary>

@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using KompasAPI.Model;
+using ORSAPR.Model;
 
 namespace UnitTests
 {
@@ -16,7 +16,7 @@ namespace UnitTests
             return sourceParameters;
         }
 
-        [Test(Description = "Позитивный тест параметров ")]
+        [TestCase(TestName = "Позитивный тест параметров ")]
         public void Parameters_ReturnsSameValue()
         {
             var sourceParameters = CreateTestParameters();
@@ -49,7 +49,7 @@ namespace UnitTests
                 "Значения ButtonHeight не совпадают");
         }
 
-        [Test(Description = "Негативный тест параметра длины дверцы")]
+        [TestCase(TestName = "Негативный тест параметра длины дверцы")]
         public void Parameter_DoorLengthRange()
         {
             var sourceParameters = new ModelParameters(
@@ -63,7 +63,7 @@ namespace UnitTests
                 {sourceParameters.DoorLength.Value = 2000;},
                 "Длина дверцы входит в допустимый диапазон");
         }
-        [Test(Description = "Негативный тест параметра высоты дверцы")]
+        [TestCase(TestName = "Негативный тест параметра высоты дверцы")]
         public void Parameter_DoorHeightRange()
         {
             var sourceParameters = new ModelParameters(
@@ -91,7 +91,7 @@ namespace UnitTests
             return sourceParameter;
         }
 
-        [Test(Description = "Позитивный тест параметра")]
+        [TestCase(TestName = "Позитивный тест параметра")]
         public void Parameter_ReturnsSameValue()
         {
             var sourceParameter = CreateTestParameter();
@@ -116,7 +116,7 @@ namespace UnitTests
                 "Значения Max не совпадают");
         }
 
-        [Test(Description = "Негативный тест корректности параметра")]
+        [TestCase(TestName = "Негативный тест корректности параметра")]
         public void Parameter_CheckRange()
         {
             Assert.Throws<ArgumentException>(() =>
