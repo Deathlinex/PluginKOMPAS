@@ -16,12 +16,31 @@ namespace ORSAPR.Model
         /// Минимальное значение параметра
         /// </summary>
         public double Min { get; set; }
+        
+        /// <summary>
+        /// Максимальное значение параметра
+        /// </summary>
+        private double _max;
 
         /// <summary>
         /// Максимальное значение параметра
         /// </summary>
-        public double Max { get; set; }
-        
+        public double Max
+        {
+            get
+            {
+                return _max;
+            }
+            set
+            {
+                if (value < Min)
+                {
+                    throw new ArgumentException($" Максимум {Max} меньше чем {Min}");
+                }
+                _max = value;
+            }
+        }
+
         /// <summary>
         /// Значение параметра
         /// </summary>
@@ -57,8 +76,8 @@ namespace ORSAPR.Model
             double value, double min, double max)
         {
             Name = name;
-            Max = max;
             Min = min;
+            Max = max;
             Value = value;
         }
     }

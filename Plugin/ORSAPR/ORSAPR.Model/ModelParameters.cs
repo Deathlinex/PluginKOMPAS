@@ -257,46 +257,14 @@
         /// </summary>
         public ModelParameters()
         {
-            DoorHeight = new Parameter(
-                "Высота дверцы",
-                200,
-                200,
-                225);
-            CaseDepth = new Parameter(
-                "Глубина корпуса",
-                300,
-                300, 
-                450);
-            DiameterOfButtons = new Parameter(
-                "Диаметр кнопок",
-                40, 
-                20,
-                40);
-            DoorLength = new Parameter(
-                "Длина дверцы",
-                220,
-                220,
-                235);
-            CaseLength = new Parameter(
-                "Длина корпуса", 
-                400,
-                400,
-                500);
-            CaseHeight = new Parameter(
-                "Высота корпуса",
-                250, 
-                250,
-                300);
-            ButtonLength = new Parameter(
-                "Длина кнопки",
-                100,
-                60, 
-                100);
-            ButtonHeight = new Parameter(
-                "Высота кнопки",
-                50,
-                30,
-                50);
+            DoorHeight = new Parameter("Высота дверцы", 200, 200, 225);
+            CaseDepth = new Parameter("Глубина корпуса", 300, 300, 450);
+            DiameterOfButtons = new Parameter("Диаметр кнопок", 40, 20, 40);
+            DoorLength = new Parameter("Длина дверцы", 220, 220, 235);
+            CaseLength = new Parameter("Длина корпуса", 400, 400, 500);
+            CaseHeight = new Parameter("Высота корпуса", 250, 250, 300);
+            ButtonLength = new Parameter("Длина кнопки", 100, 60, 100);
+            ButtonHeight = new Parameter("Высота кнопки", 50, 30, 50);
         }
 
         /// <summary>
@@ -311,46 +279,20 @@
             int buttonHeight)
 
         {
-            DoorHeight = new Parameter(
-                "Высота дверцы",
-                caseHeight - 25,
+            DoorHeight = new Parameter("Высота дверцы",
+                caseHeight - DoorHeightDependentValue,
                 200,
-                caseHeight - 25);
-            CaseDepth = new Parameter(
-                "Глубина корпуса",
-                caseDepth,
-                300,
-                450);
-            DiameterOfButtons = new Parameter(
-                "Диаметр кнопок",
-                diameterOfButtons,
-                20,
-                40);
-            DoorLength = new Parameter(
-                "Длина дверцы",
-                caseLength - 165,
+                caseHeight - DoorHeightDependentValue);
+            CaseDepth = new Parameter("Глубина корпуса", caseDepth, 300, 450);
+            DiameterOfButtons = new Parameter("Диаметр кнопок", diameterOfButtons, 20, 40);
+            DoorLength = new Parameter("Длина дверцы",
+                caseLength - DoorLengthDependentValue,
                 220,
-                caseLength - 165);
-            CaseLength = new Parameter(
-                "Длина корпуса",
-                caseLength,
-                400,
-                500);
-            CaseHeight = new Parameter(
-                "Высота корпуса",
-                caseHeight,
-                250,
-                300);
-            ButtonLength = new Parameter(
-                "Длина кнопки",
-                buttonLength,
-                60,
-                100);
-            ButtonHeight = new Parameter(
-                "Высота кнопки",
-                buttonHeight,
-                30,
-                50);
+                caseLength - DoorLengthDependentValue);
+            CaseLength = new Parameter("Длина корпуса", caseLength, 400, 500);
+            CaseHeight = new Parameter("Высота корпуса", caseHeight, 250, 300);
+            ButtonLength = new Parameter("Длина кнопки", buttonLength, 60, 100);
+            ButtonHeight = new Parameter("Высота кнопки", buttonHeight, 30, 50);
         }
     }
 }

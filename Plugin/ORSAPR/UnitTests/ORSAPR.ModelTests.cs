@@ -116,15 +116,16 @@ namespace UnitTests
                 "Значения Max не совпадают");
         }
 
-        [TestCase(TestName = "Негативный тест корректности параметра")]
-        public void Parameter_CheckRange()
+        [TestCase(155,2000,100, TestName = "Негативный тест корректности пределов значения параметра")]
+        [TestCase(155, 90, 100, TestName = "Негативный тест корректности значения параметра")]
+        public void Parameter_CheckCorrectParameter(int value, int min, int max)
         {
             Assert.Throws<ArgumentException>(() =>
                 {var parameter = new Parameter(
                     "Параметр первый",
-                    155,
-                    90,
-                    100);}, "Параметр корректный");
+                    value,
+                    min,
+                    max);}, "Параметр корректный");
         }
     }
 }

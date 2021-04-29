@@ -56,6 +56,8 @@ namespace ORSAPR
             _builder = new Builder();
             _modelParameters = new ModelParameters();
             FillTextBoxes();
+            DoorLengthTextBox.ForeColor = Color.Black;
+            DoorHeightTextBox.ForeColor = Color.Black;
         }
 
         /// <summary>
@@ -104,9 +106,8 @@ namespace ORSAPR
                 GetNewModelParameters();
                 FillTextBoxes();
             }
-            //TODO:
             catch (Exception)
-            {}
+            {DoorLengthTextBox.ForeColor = Color.Red; }
             TextBoxValueCheck(CaseLengthTextBox, _modelParameters.CaseLength);
         }
 
@@ -132,9 +133,8 @@ namespace ORSAPR
                 GetNewModelParameters();
                 FillTextBoxes();
             }
-            //TODO:
             catch (Exception)
-            {}
+            { DoorHeightTextBox.ForeColor = Color.Red; }
             TextBoxValueCheck(CaseHeightTextBox, _modelParameters.CaseHeight);
         }
 
@@ -221,6 +221,8 @@ namespace ORSAPR
                 parameter.Value = Int32.Parse(textBox.Text);
                 ErrorToolTip.Active = false;
                 textBox.ForeColor = Color.Black;
+                DoorLengthTextBox.ForeColor = Color.Black;
+                DoorHeightTextBox.ForeColor = Color.Black;
                 _correctValue[textBox] = true;
             }
             catch (Exception ex)
