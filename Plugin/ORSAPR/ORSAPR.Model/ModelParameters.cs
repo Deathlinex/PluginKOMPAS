@@ -272,16 +272,8 @@
                 40, 
                 20,
                 40);
-            DoorLength = new Parameter(
-                "Длина дверцы",
-                220,
-                220,
-                235);
-            CaseLength = new Parameter(
-                "Длина корпуса", 
-                400,
-                400,
-                500);
+            DoorLength = new Parameter("Длина дверцы", 220, 220, 235);
+            CaseLength = new Parameter("Длина корпуса", 400, 400, 500);
             CaseHeight = new Parameter(
                 "Высота корпуса",
                 250, 
@@ -311,6 +303,7 @@
             int buttonHeight)
 
         {
+            //TODO:const
             DoorHeight = new Parameter(
                 "Высота дверцы",
                 caseHeight - 25,
